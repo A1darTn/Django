@@ -22,11 +22,12 @@ def bus_stations(request):
     # также передайте в контекст список станций на странице
 
     page_number = int(request.GET.get("page", 1))
-    paginator = Paginator(BUS_STATION_CSV, 10)
+    paginator = Paginator(BUS_STATIONS, 10)
     page = paginator.get_page(page_number)
+    bus_station = page.object_list
 
     context = {
-        "bus_stations": page,
-        "page": page_number,
+        "bus_stations": bus_station,
+        "page": page,
     }
     return render(request, "stations/index.html", context)
