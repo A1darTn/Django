@@ -10,16 +10,20 @@ def index(request):
 def books_view(request):
     template = "books/books_list.html"
     books = Book.objects.all()
-    context = {'books': books}
+    context = {"books": books}
     return render(request, template, context)
 
 
 def book_detail(request, pub_date):
-    template = ""
-    books = Book.objects.filter(pub_date=pub_date)
+    template = "books/book_detail.html" 
+    books = Book.objects.filter(pub_date=pub_date).first() #Объясните, пожалуйста, почему без first() не работало
     page_date = pub_date
     paginator = Paginator(books, 10)
     page = paginator.get_page(page_date)
-    context = {"books": books, "page": page}
+    books = page.object_list
+    context = {
+        "books": books,
+        "page": page
+    }
 
     return render(request, template, context)
