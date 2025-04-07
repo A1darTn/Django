@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}{{ books.name }}{% endblock %}
+{% block title %}{{ current_book.name }}{% endblock %}
 
 {% block content %}
   <div class="container">
@@ -14,15 +14,19 @@
     </div>
 
   <div class="content">
-    <div>Автор: {{ books.author }}</div>
-    <div>Дата публикации: {{ books.pub_date }}</div>
+    <div>Автор: {{ current_book.author }}</div>
+    <div>Дата публикации: {{ current_book.pub_date }}</div>
   </div>
-  <div class="div">
-    {% if page.has_previous %}
-        <a href="?page={{ page.previous_page_number }}">Назад</a>
+  <div>
+    {% if previous_book %}
+        <a href="{% url 'books_detail' previous_book.pub_date %}">« {{ previous_book.pub_date }}</a>
+    {% else %}
+        <span>« Нет предыдущей книги</span>
     {% endif %}
-    {% if page.has_next %}
-        <a href="?page={{ page.next_page_number }}">Вперед</a>
+    {% if next_book %}
+        <a href="{% url 'books_detail' next_book.pub_date %}">{{ next_book.pub_date }} »</a>
+    {% else %}
+        <span>Нет следующей книги »</span>
     {% endif %}
-  </div>
+    </div>
 {% endblock %}
