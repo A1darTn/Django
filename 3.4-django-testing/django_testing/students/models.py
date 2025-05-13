@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Student(models.Model):
-
+    id = models.BigAutoField(primary_key=True)
     name = models.TextField()
 
     birth_date = models.DateField(
@@ -11,7 +11,7 @@ class Student(models.Model):
 
 
 class Course(models.Model):
-
+    id = models.BigAutoField(primary_key=True)
     name = models.TextField()
 
     students = models.ManyToManyField(
